@@ -1,0 +1,192 @@
+---
+title: "Code Portfolio"
+author: "Jiayin Liang - 4/14/2019"
+date: "April 14, 2019"
+output: html_document
+---
+
+```{r}
+```
+
+## R Markdown
+
+```{r}
+```
+
+## Including Plots
+
+```{r}
+```
+
+1. Data Import
+
+(1) Reads comma delimited files
+
+```{r}
+read_csv()
+```
+(2) Reads semicolon separated files
+
+```{r}
+read_csv2()
+```
+(3) Reads files with tab delimited
+
+```{r}
+read_tsv()
+```
+(4) Reads in files with any delimiter
+
+```{r}
+read_delim()
+```
+(5) Reads files with fixed width
+
+```{r}
+read_fwf()
+```
+(6) Reads a file into data frame in table format
+
+```{r}
+read_table()
+```
+(7) Reads Apache style log files
+
+```{r}
+read_log()
+```
+
+2. Data Wrangling
+
+(1) Select columns of a data frame
+
+```{r}
+select()
+```
+(2) Choose rows based on specific criteria
+
+```{r}
+filter()
+```
+(3) Select certain rows by row number
+
+```{r}
+slice()
+```
+(4) Sort rows by variables
+
+```{r}
+arrange()
+```
+(5) Create new columns based on the values in existing columns
+
+```{r}
+mutate()
+```
+(6) Splits the data into groups
+
+```{r}
+group_by()
+```
+(7) Collapse each group into a single-row summary
+
+```{r}
+summarize()
+```
+(8) Count the number of observations found for each factor or combination of factors
+
+```{r}
+tally()
+```
+
+3. Data Visualization
+
+(1) Create bar chart to show a categorical comparison between two or more variables
+
+```{r}
+barplot()
+```
+(2) Histogram: to show the probability distribution of a continuous variable
+
+```{r}
+hist()
+```
+(3) Scatter plot: tracks two continuous variables over the course of time
+
+```{r}
+plot()
+```
+(4) Box Plot: provide visualization for both categorical and continuous variable data
+
+```{r}
+boxplot()
+```
+(5) Creates a coordinate system that can add layers to
+
+```{r}
+ggplot()
+```
+(6) Adds a layer of points to the plot
+
+```{r}
+geom_point()
+```
+(7) Split your plot into facets, subplots that each display one subset of the data. Facet plot by a single variable:
+
+```{r}
+facet_wrap()
+```
+(8) Facet the plot on the combination of two variables
+
+```{r}
+facet_grid()
+```
+(9) To set the linetype of a line in the plot
+
+```{r}
+geom_smooth()
+```
+
+4. Data Analysis
+
+(1) Compute a distance matrix between the rows of a data matrix
+
+```{r}
+get_dist()
+```
+(2) Visualize a distance matrix
+
+```{r}
+fviz_dist()
+```
+(3) Compute k-means
+
+```{r}
+kmeans()
+```
+(4) To illustrate the clusters
+
+```{r}
+fviz_cluster()
+```
+(5) Elbow method: to find the appropriate number of clusters in a dataset
+
+```{r}
+fviz_nbclust(df, kmeans, method = "wss")
+```
+(6) Silhouette Method: to determines how well each object lies within its cluster, measures the quality of a clustering
+
+```{r}
+fviz_nbclust(df, kmeans, method = "silhouette")
+```
+(7) To calculate the gap statistic and standard error
+
+```{r}
+clusGap()
+```
+(8) To visualize the result of gap statistic method
+
+```{r}
+fviz_gap_stat()
+```
+
