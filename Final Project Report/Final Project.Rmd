@@ -1,0 +1,101 @@
+---
+title: 'EDA assignment'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, comment = "")
+```
+
+
+##Set up questions
+
+In this study, we would perform a EDA data analysis based on the gapminder data. There are mainly 4 questions of interest:
+
+1. how the life expectancy changes from year 1800 in the world? 
+
+2. how the life expectancy changes from year 1800 in the world grouped by regions? 
+
+3. which region shows highest average life expectancy in recent years (from the year 1950)? 
+
+4. what the relationship between the income and life expectancy in recent years (from the year 1950)? 
+
+
+
+##Describe of data
+
+The gapminder data used in the study includes information on life expectancy, population and income by year, country and region in the world. The details of variables are as below:
+
+1. country: 197 countries in the world.
+
+2. year: from 1800 to 2015.
+
+3. life: life expectancy at birth, in years
+
+4. population: population
+
+5. income: GDP per capita
+
+6. region: 6 continents 
+
+The first several rows of the data is as below:
+
+
+```{r}
+data <- read.csv("gapminder.csv")
+head(data)
+```
+
+Note that, there are some missing values in the data, however, these missing values do not affect the questions studied, we can ignore them.
+
+##Explore data
+
+```{r}
+library(ggplot2)
+agg1 <- aggregate(life ~  Year, data = data, mean)
+head(agg1)
+p1 <- ggplot(agg1, aes(Year, life)) +  geom_line(color = "red")
+p1
+```
+
+To answer the first question, figure 1 illustrates that there was an ascend trend overall from the year 1800 to 2015. However, the speed of rising up was very slow before the year 1900, and there was an obvious decline in the year 1918, which was due to the high mortality of the 1918 flu epidemic. After that, the average life expectance in the world rised up very quickly until the year 2015.
+
+
+
+```{r}
+agg1 <- aggregate(life ~  Year + region, data = data, mean)
+p1 <- ggplot(agg1, aes(Year, life, group = region, color = region)) +  geom_line()
+p1
+```
+
+To answer the second question, figure 2 illustrates the similar patterns for all of the 6 regions as the figure 1. There was a big decline in the year 1918 and after that, the average life expectance rised up rapidly. However, there were some differences among the 6 regions. The region  Europe & Central Asia showed the highest average life expectance in the period while the region Sub-Saharan Africa and South Asia were the lowest ones. The gap between the highest regions and lowest regions was pretty big, which was about 15 years. And this was because the living environment and healthcare condition in Africa and South Asia were much worse than those developed regions.
+
+
+```{r}
+agg2 <- aggregate(life ~  region, data = data[data$Year >= 1950,], mean)
+agg2 <- agg2[order(agg2$life, decreasing = TRUE),]
+head(agg2)
+agg2$region <- factor(agg2$region, levels = agg2$region)
+p2 <- ggplot(agg2, aes(region, life)) + geom_bar(stat = "identity", fill = "indianred")
+p2 <- p2 + theme(axis.text.x = element_text(angle = 45))
+p2
+```
+
+To answer the third question, figure 3 illustrates the average life expectance for all of the 6 regions. Note that, due to the slow increase of the average life expectance before year 1950, we use the data from the year 1950 and onwards. The bars stand for the average life expectances for the 6 regions. The region Europe & Central Asia had highest average life expectance, which was around 70.8, while the region Sub-Saharan Africa showed the lowest average life expectance, which was around 53.6. The difference between the two regions was large, which indicates the developement gaps among the regions. We can tell, in terms of the development level, Africa was lowest. 
+
+
+
+```{r}
+data2 <- data[data$Year >= 1950,]
+p1 <- ggplot(data2, aes(log(income), life, color = region)) +  geom_point()
+p1 <- p1 + facet_wrap(~region)
+p1
+```
+
+
+To answer the last question, figure 4 illustrates the scatters between the income in log-scale and life expectance for all of the 6 regions. From these scatters, we can find that for all the 6 regions, there was a positive relationship between the income (log-scale) and the life expectance in recent years (from the year 1950 and onwards), which means with increase of the income, the life expectance would also increase. Also, there were some differences among the regions. For regions Europe & Central Asia and America, the positive relationships are much stronger than those in the regions South Asia and Sub-Saharan Africa. It means in regions such as South Asia and Sub-Saharan Africa, there were also some other restictions like poorer Medical conditions. The relatively low income in those regions might hinder them to obtain the same level of Medical condition as developed regions, which led to a weaker relationship with life expectance.
+
+
+
+
+
